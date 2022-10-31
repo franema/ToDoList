@@ -1,0 +1,89 @@
+html {
+    min-height: 100vh;
+}
+
+body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+*, *:after, *:before {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    display: grid;
+    padding: 2% 3% 0
+}
+
+header {
+    padding: 3% 4%;
+    border: solid 1px rgb(235, 211, 211);
+    border-bottom: 0;
+    border-radius: 6px 6px 0 0;
+    width: 100%;
+    background-color: rgb(128, 107, 133);
+    color: aliceblue;
+}
+
+.main {
+    display: grid;
+    grid-template: 75vh / 1fr 3fr;
+    border: solid 1px rgb(202, 202, 202);
+    border-top: 0;
+}
+
+aside {
+    display: grid;
+    padding: 10%;
+    gap: 4%;
+    grid-template: repeat(4, 5%) / 1fr;
+    align-items: flex-start;
+    background-color: rgb(179, 184, 189);
+}
+
+aside p {
+    font-size: larger;
+}
+
+.display {
+    display: grid;
+    grid-template: repeat(2, 5%) / 1fr;
+    padding: 0 4% 0;
+}
+
+.display h3 {
+    display: grid;
+    align-items: center;
+}
+
+.add_to_do {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.to_do_list {
+    display: grid;
+    gap: 1%;
+    grid-template:  repeat(auto-fill,5%) / 1fr;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.to_do_content {
+    display: grid;
+    grid-template: 1fr / 5fr 1fr;
+}
+
+.to_do_content button {
+    background-color: rgb(255, 255, 255);
+}
+
+footer {
+    margin-top: 2%;
+    padding: 2%;
+}
