@@ -4,21 +4,27 @@ const manageTodoList = (() => {
     const $addToDoButton = document.querySelector("#add_todo_button")
     const $todoList = document.querySelector(".to_do_list")
     const $todoName = document.querySelector("#todo_name")
+    const $todoDate = document.querySelector("#todo_date")
+
     //Bind events
-    $addToDoButton.addEventListener("click", addTodo)
+   
     $todoList.addEventListener("click", deleteTodo)
 
+    //Functions
     function addTodo() {
         if($todoName.value) {
+            const date =
             const todoContent = document.createElement("div")
             todoContent.classList.add("to_do_content")
             $todoList.appendChild(todoContent)
             const todo = document.createElement("p")
+            const date = document.createElement("p")
             const todoButton = document.createElement("button")
-            todoButton.textContent = "Delete"
             todo.textContent = $todoName.value
-            $todoName.value = ""
+            date.textContent = `${$todoDate.valueAsDate.getDate()}-${$todoDate.valueAsDate.toLocaleString('default', { month: 'short' })}-${$todoDate.valueAsDate.getFullYear()}`
+            todoButton.textContent = "Delete"
             todoContent.appendChild(todo)
+            todoContent.appendChild(date)
             todoContent.appendChild(todoButton)
         } 
     }
@@ -29,36 +35,61 @@ const manageTodoList = (() => {
         }
     }
 
+    return { addTodo }
 })()
 
 
 const manageSideBar = (() => {
 
     //DOM
-    const $home = document.querySelector(".home")
-    const $today = document.querySelector(".today")
-    const $thisWeek = document.querySelector(".this_week")
-    const $projects = document.querySelector(".projects")
+    const $sideBarElements = document.querySelectorAll(".side_bar_element")
+    const $listTitle = document.querySelector(".list_title")
 
     //Bind events
+    $sideBarElements.forEach((element) => element.addEventListener("click", showTitle))
 
 
-    function showHome() {
+    //Functions
+
+    function showTitle(e) {
+        $listTitle.textContent = e.target.textContent
+    }
+})()
+
+const managePopup = (() => {
+
+    //DOM
+    const $addButton = document.querySelector("#add_todo_button")
+    const $pageContent = document.querySelector(".content")
+    const $popup = document.querySelector(".popup")
+    const $acceptButton = document.querySelector(".popup_accept_button")
+    const $cancelButton = document.querySelector(".popup_cancel_button")
+    const $todoName = document.querySelector("#todo_name")
+    const $todoDate = document.querySelector("#todo_date")
+
+    //Bind events
+    $addButton.addEventListener("click", showPopup)
+    $acceptButton.addEventListener("click", acceptTodo)
+    $cancelButton.addEventListener("click", showPopup)
+
+    //Functions
+    function restartInputs () {
+        $todoDate.value = ""
+        $todoName.value = ""
 
     }
 
-    function showToday() {
-
+    function showPopup () {
+        restartInputs()
+        $pageContent.classList.toggle("blur")
+        $popup.classList.toggle("active")
     }
 
-    function showThisWeek() {
-
+    function acceptTodo () {
+        manageTodoList.addTodo()
+        showPopup()
     }
-
-    function showProjects() {
-
-    }
-})
+})()
 
 
 
