@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDoList</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -16,34 +19,42 @@
         </header>
         <div class="main">
             <aside>
-                <div class="Home">
+                <div class="side_bar_element home">
                     <p>Home</p>
                 </div>
-                <div class="today">
+                <div class="side_bar_element today">
                     <p>Today</p>
                 </div>
-                <div class="this_week">
+                <div class="side_bar_element this_week">
                     <p>This Week</p>
                 </div>
-                <div class="projects">
+                <div class="side_bar_element projects">
                     <p>Projects</p>
                 </div>
+                <button id="add_todo_button">+</button>
             </aside>
             <div class="display">
-                <h3>Home</h3>
-                <div class="add_to_do">
-                    <button id="add_todo_button">Add To Do</button>
-                    <input id="todo_name" type="text">
-                </div>
+                <h3 class="list_title">Home</h3>
                 <div class="to_do_list">
-                   
+                    <div class="to_do_content">
+                        <p>Algo</p>
+                        <p>00-Sep-0000</p>
+                        <button>Delete</button>
+                    </div>
                 </div>
             </div>
         </div>
-        <footer>
-            <p>Copyright Someone 2022</p>
-        </footer>
 
+    </div>
+    <div class="popup">
+        <label for="todo_name">Title</label>
+        <input class="todo_name" name="todo_name" id="todo_name" type="text" placeholder="e.g pay bills">
+        <label for="todo_date">Due date</label>
+        <input type="date" name="todo_date" id="todo_date">
+        <div class="buttons">
+            <button class="popup_accept_button">Accept</button>
+            <button class="popup_cancel_button">Cancel</button>
+        </div>
     </div>
 
 
