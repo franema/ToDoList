@@ -19,6 +19,13 @@ body {
     padding: 2% 3% 0
 }
 
+.blur {
+    filter: blur(10px);
+    pointer-events: none;
+    user-select: none;
+}
+
+
 header {
     padding: 3% 4%;
     border: solid 1px rgb(235, 211, 211);
@@ -34,6 +41,7 @@ header {
     grid-template: 75vh / 1fr 3fr;
     border: solid 1px rgb(202, 202, 202);
     border-top: 0;
+    font-family: 'Kanit', sans-serif;
 }
 
 aside {
@@ -42,22 +50,52 @@ aside {
     gap: 4%;
     grid-template: repeat(4, 5%) / 1fr;
     align-items: flex-start;
-    background-color: rgb(179, 184, 189);
+    background-color: rgb(199, 206, 137);
+    color: aliceblue;
+}
+
+aside > div {
+    cursor: pointer;
+}
+
+aside > div:hover {
+    color: rgb(210, 158, 223);
 }
 
 aside p {
-    font-size: larger;
+    font-size: 1.8rem;
+}
+
+aside #add_todo_button {
+    align-self: flex-end;
+    justify-self: flex-end;
+    font-size: 3rem;
+    width: 30%;
+    background-color: rgb(161, 113, 173);
+    border: solid 1px rgb(201, 201, 201);
+    border-radius: 20px;
+    padding: 2% 0;
+    color: aliceblue;
+    cursor: pointer;
+}
+
+aside #add_todo_button:hover {
+    background-color: rgb(94, 56, 104);
 }
 
 .display {
     display: grid;
-    grid-template: repeat(2, 5%) / 1fr;
+    grid-template: 8% / 1fr;
     padding: 0 4% 0;
+    overflow-y: auto;
+    background-color: rgb(236, 236, 227);
 }
 
 .display h3 {
     display: grid;
     align-items: center;
+    padding: 2% 0;
+    font-size: 1.4rem;
 }
 
 .add_to_do {
@@ -69,21 +107,87 @@ aside p {
 .to_do_list {
     display: grid;
     gap: 1%;
-    grid-template:  repeat(auto-fill,5%) / 1fr;
+    grid-template:  repeat(auto-fill, 5%) / 1fr;
     align-items: center;
-    overflow-y: auto;
+    font-size: 1rem;
 }
 
 .to_do_content {
     display: grid;
-    grid-template: 1fr / 5fr 1fr;
+    grid-template: 1fr / 7fr 1.5fr 1fr;
+    border: solid 1px aliceblue;
+    border-radius: 6px;
+    background-color: aliceblue;
+    padding: 0 0 0 2% ;
 }
 
 .to_do_content button {
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(192, 153, 202);
+    border: solid 1px aliceblue;
+    color: aliceblue;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
-footer {
-    margin-top: 2%;
+.to_do_content button:hover {
+    border-color: blueviolet;
+}
+
+.popup {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 3rem;
+    background-color: rgb(195, 176, 212);
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.5s;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 50%;
+    border: solid 1px aliceblue;
+}
+
+.popup label {
+    font-size: 1.5rem;
+    color: aliceblue;
+    margin: 1% 0;
+}
+
+.popup input {
     padding: 2%;
+    border: solid 1px aliceblue;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.popup .buttons {
+    align-self: flex-end;
+    display: flex;
+    gap: 2%;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.buttons button {
+    font-size: 1.5rem;
+    background-color: rgb(161, 113, 173);
+    border: solid 1px rgb(201, 201, 201);
+    border-radius: 6px;
+    padding: 2% 5%;
+    color: aliceblue;
+    cursor: pointer;  
+}
+
+.buttons button:hover {
+    background-color: rgb(94, 56, 104);
+}
+
+
+.popup.active {
+    top: 50%;
+    visibility: visible;
+    opacity: 1;
 }
