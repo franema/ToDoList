@@ -50,8 +50,8 @@ aside {
     gap: 4%;
     grid-template: repeat(4, 5%) / 1fr;
     align-items: flex-start;
-    background-color: rgb(199, 206, 137);
-    color: aliceblue;
+    background-color: rgb(249, 255, 197);
+    color: rgb(128, 107, 133);
 }
 
 aside > div {
