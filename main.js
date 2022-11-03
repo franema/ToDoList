@@ -3,24 +3,44 @@ const todoFactory = (title, date) => {
 }
 
 const createTodoArray = (() => {
-    const todoList = []
-
-    //functions
-    function addTodoList(title, date) {
-        todoList.push(todoFactory(title, date))
+    
+    let todoList = []
+    if(JSON.parse(localStorage.getItem("todoList"))) {
+        todoList = JSON.parse(localStorage.getItem("todoList"))
+        reviveDates()
     }
 
-    return { todoList, addTodoList }
+    //functions
+    function reviveDates () {
+        todoList.forEach((todo) => {
+            todo.date = new Date(todo.date)
+        })
+    }
+
+    function addTodoList(title, date) {
+        todoList.push(todoFactory(title, date))
+        localStorage.setItem("todoList", JSON.stringify(todoList))
+    }
+
+    function removeTodoList(index) {
+        todoList.splice(index, 1)
+        localStorage.setItem("todoList", JSON.stringify(todoList))
+    }
+
+    return { todoList, addTodoList, removeTodoList }
 })()
 
 
 const manageTodoList = (() => {
-
+    
     //DOM
     const $addToDoButton = document.querySelector("#add_todo_button")
     const $todoList = document.querySelector(".to_do_list")
     const $todoName = document.querySelector("#todo_name")
     const $todoDate = document.querySelector("#todo_date")
+    
+    //Previous data 
+    _render(createTodoArray.todoList)
 
     //Bind events
     $todoList.addEventListener("click", deleteTodo)
@@ -37,7 +57,9 @@ const manageTodoList = (() => {
         const todoButton = document.createElement("button")
         $todo.textContent = $todoName.value || title
         if($todoDate.valueAsDate) {
-            $date.textContent = `${$todoDate.valueAsDate.getDate()}-${$todoDate.valueAsDate.toLocaleString('default', { month: 'short' })}-${$todoDate.valueAsDate.getFullYear()}`
+            const fixedDate = new Date(`${$todoDate.value}T00:00`)
+            $date.textContent = `${fixedDate.getDate()}-${fixedDate.toLocaleString('default', { month: 'short' })}-${fixedDate.getFullYear()}`
+            createTodoArray.addTodoList($todoName.value, fixedDate)
         } else {
             $date.textContent = `${date.getDate()}-${date.toLocaleString('default', { month: 'short' })}-${date.getFullYear()}`
         }
@@ -45,15 +67,14 @@ const manageTodoList = (() => {
         todoContent.appendChild($todo)
         todoContent.appendChild($date)
         todoContent.appendChild(todoButton)
-        if($todoName.value) {
-            createTodoArray.addTodoList($todoName.value, $todoDate.valueAsDate)
-        }
 
     }
 
     function deleteTodo(e) {
         if (e.target.textContent === "Delete") {
+            createTodoArray.removeTodoList(e.target.parentElement.dataset.index)
             e.target.parentElement.remove()
+            checkList()
         }
     }
 
@@ -77,7 +98,7 @@ const manageTodoList = (() => {
         } else if ($listTitle.textContent === "This Week") {
             const thisWeekArray = createTodoArray.todoList.filter((todo) => {
                 today = new Date
-                return (todo.date.getDate() - today.getDate()) <= 6 && todo.date.getMonth() === today.getMonth() && todo.date.getFullYear() === today.getFullYear()
+                return todo.date.getDay() >= today.getDay() && (todo.date.getDate() - today.getDate()) <= 6 && todo.date.getMonth() === today.getMonth() && todo.date.getFullYear() === today.getFullYear()
             })
             _render(thisWeekArray)
         }
@@ -96,7 +117,6 @@ const manageSideBar = (() => {
 
     //Bind events
     $sideBarElements.forEach((element) => element.addEventListener("click", showTitle))
-
 
     //Functions
     function showTitle(e) {
