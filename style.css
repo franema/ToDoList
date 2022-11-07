@@ -8,7 +8,9 @@ body {
     padding: 0;
 }
 
-*, *:after, *:before {
+*,
+*:after,
+*:before {
     box-sizing: inherit;
     margin: 0;
     padding: 0;
@@ -19,13 +21,14 @@ body {
     padding: 2% 3% 0
 }
 
+/* Blur effect for popups messages*/
 .blur {
     filter: blur(10px);
     pointer-events: none;
     user-select: none;
 }
 
-
+/*Header */
 header {
     padding: 3% 4%;
     border: solid 1px rgb(235, 211, 211);
@@ -36,6 +39,7 @@ header {
     color: aliceblue;
 }
 
+/* Main content*/
 .main {
     display: grid;
     grid-template: 75vh / 1fr 3fr;
@@ -44,6 +48,7 @@ header {
     font-family: 'Kanit', sans-serif;
 }
 
+/*Aside Bar */
 aside {
     display: grid;
     padding: 10%;
@@ -54,16 +59,37 @@ aside {
     color: rgb(128, 107, 133);
 }
 
-aside > div {
+aside>div {
     cursor: pointer;
 }
 
-aside > div:hover {
+.side_bar_element:hover {
     color: rgb(210, 158, 223);
 }
 
 aside p {
     font-size: 1.8rem;
+}
+
+.projects_names {
+    margin-top: -6%;
+}
+
+.project_name {
+    font-size: 1.4rem;
+    padding-left: 8%;
+    opacity: 0;
+    cursor: default;
+    transition: all 0.5s;
+}
+
+.project_name:hover {
+    color: rgb(210, 158, 223);
+}
+
+.show {
+    opacity: 1;
+    cursor: pointer;
 }
 
 aside #add_todo_button {
@@ -83,6 +109,8 @@ aside #add_todo_button:hover {
     background-color: rgb(94, 56, 104);
 }
 
+
+/* Todo List Display*/
 .display {
     display: grid;
     grid-template: 8% / 1fr;
@@ -107,18 +135,27 @@ aside #add_todo_button:hover {
 .to_do_list {
     display: grid;
     gap: 1%;
-    grid-template:  repeat(auto-fill, 5%) / 1fr;
+    grid-template: repeat(auto-fill, 5%) / 1fr;
     align-items: center;
     font-size: 1rem;
 }
 
+/*Todo elements*/
 .to_do_content {
     display: grid;
-    grid-template: 1fr / 7fr 1.5fr 1fr;
+    grid-template: 1fr / 7fr 1.5fr 0.4fr 0.4fr;
     border: solid 1px aliceblue;
     border-radius: 6px;
     background-color: aliceblue;
-    padding: 0 0 0 2% ;
+    padding: 0 0 0 2%;
+}
+
+.to_do_content.cross_out {
+    background-color: rgb(196, 199, 199);
+}
+
+.to_do_content.cross_out p {
+    text-decoration: line-through wavy rgb(117, 50, 50);
 }
 
 .to_do_content button {
@@ -133,6 +170,30 @@ aside #add_todo_button:hover {
     border-color: blueviolet;
 }
 
+/*Checkbox */
+#done {
+    appearance: none;
+    background-color: rgb(192, 153, 202);
+    border: solid 1px aliceblue;
+    color: aliceblue;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    display: grid;
+    align-items: center;
+}
+
+#done::before {
+    content: "✔";
+    visibility:hidden;
+}
+
+#done:checked::before {
+    visibility: visible;
+}
+
+
+/*"Add Todo" Popup*/
 .popup {
     position: fixed;
     top: 40%;
@@ -178,7 +239,7 @@ aside #add_todo_button:hover {
     border-radius: 6px;
     padding: 2% 5%;
     color: aliceblue;
-    cursor: pointer;  
+    cursor: pointer;
 }
 
 .buttons button:hover {
